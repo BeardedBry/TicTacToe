@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-I built this game to practice coding in an Object Oriented Style. 
+I built this game to practice coding with javascript in an Object Oriented Style. 
 
 ## Getting Started
 
@@ -14,4 +14,4 @@ Download and run index.html
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details

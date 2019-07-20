@@ -35,8 +35,12 @@ class Game {
 
      let Xrow = checkRows('x');
      let Orow = checkRows('o');
-     
 
+     var row1,row2,row3;
+    [row1, row2, row3] = boardArray;
+
+     let Xvert = checkCols('x');
+     console.log(Xvert);
 
 
       function checkRows(player){
@@ -49,6 +53,14 @@ class Game {
           }
           return true;
           });
+      }
+
+      function checkCols(player){
+        for(let i = 0; i < 3; i++){
+          if(row1[i] == 'x' && row2[i] == 'x' && row3[i] == 'x')
+            return true;
+        }
+        return false;
       }
 
     }
