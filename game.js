@@ -1,4 +1,5 @@
 /* jshint esversion: 6 */
+"use strict";
 
 class Game {
     
@@ -7,18 +8,12 @@ class Game {
       this.count = 0;
       this.turn = null;
       this.display = display;
-    }
-  
-    checkForWinner(boardArray) {
-      if(this.count < 5){
-        return;
-      }
-      console.log("checking for winner");
+      this.winner = 'nobody';
     }
   
     click(target){
         //console.dir(target);
-        console.log(this.turn.letter);
+        //console.log(this.turn.letter);
         this.count++;
         target.textContent = this.turn.letter;
 
@@ -29,6 +24,39 @@ class Game {
             this.turn = player1;
             this.display.textContent = player1.letter;
         }
+    }
+
+
+    checkForWinner(boardArray) {
+      if(this.count < 5){
+        return;
+      }
+      console.log("checking for winner");
+
+     let winnerX = checkRows('x');
+     let winnerO = checkRows('o');
+     
+      console.log("x: " + winnerX);
+      console.log("o: " + winnerO);
+
+
+
+      function checkRows(player){
+        return boardArray.some(function(row){
+
+          for(let i=0; i<row.length; i++){
+            if(row[i] !== player){
+              return false;
+            }
+          }
+          return true;
+          });
+      }
+
+    }
+
+    winner(player){
+      console.log("Player " + player + " is the winner!");
     }
   
   }
