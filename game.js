@@ -33,11 +33,9 @@ class Game {
       }
       console.log("checking for winner");
 
-     let winnerX = checkRows('x');
-     let winnerO = checkRows('o');
+     let Xrow = checkRows('x');
+     let Orow = checkRows('o');
      
-      console.log("x: " + winnerX);
-      console.log("o: " + winnerO);
 
 
 
