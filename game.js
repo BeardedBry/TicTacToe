@@ -53,7 +53,22 @@ class Game {
       }
 
       populateGrid(){
+
         let cellContents = this.cells.map((cell)=>cell.textContent);
+        let gridColumn = 0;
+
+        for( let i = 0; i < cellContents.length; i++ ){
+          if( i < 3 ){
+            this.grid[0][gridColumn] = cellContents[i];
+          }
+          else if( i < 6 ){
+            this.grid[1][gridColumn] = cellContents[i];
+          }else{
+            this.grid[2][gridColumn] = cellContents[i];
+          }
+          gridColumn++;
+          if(gridColumn > 2){gridColumn = 0;}
+        }
 
       }
 
@@ -69,6 +84,7 @@ class Game {
   //board.populateGrid(game.table);
   game.turn = player1;
 
+  //Pretty much the game loop
   game.table.addEventListener('click',function(e){
       if(e.target.nodeName == 'TD' && e.target.textContent == ""){
         game.click(e.target);
