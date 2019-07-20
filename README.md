@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-I built this game to practice in Object Oriented JavaScript. 
+I built this game to practice coding in an Object Oriented Style. 
 
 ## Getting Started
 
@@ -9,7 +9,7 @@ Download and run index.html
 
 ## Authors
 
-* **Brian Burkard** - [PurpleBooth](https://github.com/BeardedGuyBry)
+* **Brian Burkard** - [BeardedBry](https://github.com/BeardedBry)
 
 
 ## License
