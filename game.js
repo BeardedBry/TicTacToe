@@ -33,35 +33,43 @@ class Game {
       }
       console.log("checking for winner");
 
+      var row1,row2,row3;
+      [row1, row2, row3] = boardArray;
+
      let Xrow = checkRows('x');
      let Orow = checkRows('o');
 
-     var row1,row2,row3;
-    [row1, row2, row3] = boardArray;
+     
 
      let Xvert = checkCols('x');
-     console.log(Xvert);
+     let Overt = checkCols('o');
+
+     console.log('X: ' + Xrow);
+     console.log('O: ' + Orow);
 
 
-      function checkRows(player){
-        return boardArray.some(function(row){
 
-          for(let i=0; i<row.length; i++){
-            if(row[i] !== player){
-              return false;
-            }
-          }
-          return true;
+      function checkRows(letter){
+        return boardArray.some((row)=>{
+          return row.every(function(currentValue){
+            return currentValue == letter;
           });
+        });
+
       }
 
       function checkCols(player){
-        for(let i = 0; i < 3; i++){
-          if(row1[i] == 'x' && row2[i] == 'x' && row3[i] == 'x')
-            return true;
-        }
-        return false;
+        
       }
+
+      function checkForX(currentValue){
+        return currentValue == player1.letter;
+      }
+
+      function checkForO(currentValue){
+        return currentValue == player2.letter;
+      }
+      
 
     }
 
