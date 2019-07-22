@@ -33,8 +33,8 @@ class Game {
       }
       console.log("checking for winner");
 
-      var row1,row2,row3;
-      [row1, row2, row3] = boardArray;
+      // var row1,row2,row3;
+      // [row1, row2, row3] = boardArray;
 
      let Xrow = checkRows('x');
      let Orow = checkRows('o');
@@ -44,13 +44,14 @@ class Game {
      let Xvert = checkCols('x');
      let Overt = checkCols('o');
 
-     console.log('X: ' + Xrow);
-     console.log('O: ' + Orow);
-
+     console.log('X: ' + Xvert);
+     //console.log('X: ' + Xrow);
+     //console.log('O: ' + Orow);
 
 
       function checkRows(letter){
-        return boardArray.some((row)=>{
+        
+        return boardArray.some((row)=>{ // 'some' works like forEach but looks until it finds a true value.
           return row.every(function(currentValue){
             return currentValue == letter;
           });
@@ -58,18 +59,43 @@ class Game {
 
       }
 
-      function checkCols(player){
+      function checkCols(letter){
         
-      }
+        // TODO: Convert boardArray intro three arrays from each position in the original. (making the verticle columns). 
+        // [ [0,1,2], [0,1,2], [0,1,2]]  :  [ [0,0,0], [1,1,1], [2,2,2] ]
+        var vert = [[],[],[]];
 
-      function checkForX(currentValue){
-        return currentValue == player1.letter;
-      }
+        // convert array to be verticle.
+        boardArray.forEach((row)=>{
+          for(let i = 0; i < row.length; i++){
+            switch(i){
+              case 0:
+                vert[0].push(row[i]);
+                break;
+              case 1:
+                vert[1].push(row[i]);
+                break;  
+              case 2:
+                vert[2].push(row[i]);
+                break;
+            }
+          }
+        });
 
-      function checkForO(currentValue){
-        return currentValue == player2.letter;
+        //console.log(vert);
+        // check for match, just like in horizontal.
+        return vert.some((col)=>{
+          return col.every(function(currentValue){
+            return currentValue == letter;
+          });
+        });
+
+
       }
-      
+  
+      //TODO write check diagonal function;
+      function checkAcross(letter){
+      }
 
     }
 
