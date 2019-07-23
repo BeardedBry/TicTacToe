@@ -74,7 +74,7 @@ class Game {
       }
 
 
-        function checkAcross(letter){
+      function checkAcross(letter){
           // convert array to match diagonal.
         var diag = [[],[]];
 
@@ -105,32 +105,22 @@ class Game {
   class Board {
 
       constructor(cells){
-        this.grid = [
-          [0,0,0],
-          [0,0,0],
-          [0,0,0]
-        ];
+        this.grid = [];
         this.cells = Array.prototype.slice.call(cells);
       }
 
       populateGrid(){
-
+        this.grid.length = 0;
+        this.grid = [[],[],[]];
         let cellContents = this.cells.map((cell)=>cell.textContent);
-        let gridColumn = 0;
 
-        for( let i = 0; i < cellContents.length; i++ ){
-          if( i < 3 ){
-            this.grid[0][gridColumn] = cellContents[i];
+        for( let i = 0, j=0; i < cellContents.length; i++ ){
+          this.grid[j].push(cellContents[i]);
+          if( (i+1)%3 === 0 ){
+            j++;
           }
-          else if( i < 6 ){
-            this.grid[1][gridColumn] = cellContents[i];
-          }else{
-            this.grid[2][gridColumn] = cellContents[i];
-          }
-          gridColumn++;
-          if(gridColumn > 2){gridColumn = 0;}
         }
-
+        console.log(this.grid);
       }
 
   }
@@ -149,7 +139,10 @@ class Game {
   game.table.addEventListener('click',function(e){
       if(e.target.nodeName == 'TD' && e.target.textContent == ""){
         game.click(e.target);
-        board.populateGrid();
-        game.checkForWinner(board.grid);
+        
+        if(game.count > 4){  
+          board.populateGrid();
+          game.checkForWinner(board.grid);
+        }
       }
     });
