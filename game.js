@@ -1,5 +1,5 @@
 /* jshint esversion: 6 */
-"use strict";
+"use strict()";
 
 class Game {
     
@@ -7,8 +7,9 @@ class Game {
       this.table = table;
       this.count = 0;
       this.players = players;
+      this.currentPlayer = null;
       this.display = display;
-      this.winner = 'nobody';
+      this.winner = null;
     }
   
     click(target){
@@ -17,29 +18,23 @@ class Game {
         let currentIndex = this.players.findIndex((player)=>player.turn == true);
         let otherIndex = this.players.findIndex((player)=>player.turn !== true);
         target.textContent = this.players[currentIndex].letter;
+        this.currentPlayer = this.players[currentIndex];
 
         this.players[currentIndex].turn = false;
         this.players[otherIndex].turn = true;
+        this.display.textContent =  this.players[otherIndex].letter;
     }
 
 
     checkForWinner(boardArray) {
       console.log("checking for winner");
 
-     let Xrow = check(boardArray,'x');
-     let Orow = check(boardArray,'o');
-     let Xvert = checkCols('x');
-     let Overt = checkCols('o');
-     let Xcross = checkAcross('x');
-     let Ocross = checkAcross('o');
+     let tests = [check(boardArray,'x'), check(boardArray,'o'),checkCols('x'),checkCols('o'),checkAcross('x'),checkAcross('o')];
 
-
-
-     console.log('X accross: ' + Xcross);
-     console.log('X vert: ' + Xvert);
-     console.log('X row: ' + Xrow);
-
-
+     if (tests.some((val=>val==true))){
+        this.winner = this.currentPlayer;
+        console.log("Player " + this.winner.letter + " is the winner!");
+     }
 
       function check(array, letter){
         
@@ -79,10 +74,6 @@ class Game {
         return check(diag,letter);
       }
 
-    }
-
-    winner(player){
-      console.log("Player " + player + " is the winner!");
     }
   
   }
@@ -130,7 +121,7 @@ class Game {
 
   //Pretty much the game loop
   game.table.addEventListener('click',function(e){
-      if(e.target.nodeName == 'TD' && e.target.textContent == ""){
+      if(e.target.nodeName == 'TD' && e.target.textContent == "" && game.winner == null){
         game.click(e.target);
         
         if(game.count > 4){  
