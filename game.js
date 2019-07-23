@@ -3,43 +3,36 @@
 
 class Game {
     
-    constructor(table, display){
+    constructor(table, display, players){
       this.table = table;
       this.count = 0;
-      this.turn = null;
+      this.players = players;
       this.display = display;
       this.winner = 'nobody';
     }
   
     click(target){
-        //console.dir(target);
-        //console.log(this.turn.letter);
-        this.count++;
-        target.textContent = this.turn.letter;
 
-        if(this.turn == player1){
-            this.turn = player2;
-            this.display.textContent = player2.letter;
-        }else{
-            this.turn = player1;
-            this.display.textContent = player1.letter;
-        }
+        this.count++;
+        let currentIndex = this.players.findIndex((player)=>player.turn == true);
+        let otherIndex = this.players.findIndex((player)=>player.turn !== true);
+        target.textContent = this.players[currentIndex].letter;
+
+        this.players[currentIndex].turn = false;
+        this.players[otherIndex].turn = true;
     }
 
 
     checkForWinner(boardArray) {
-      if(this.count < 5){
-        return;
-      }
       console.log("checking for winner");
 
      let Xrow = check(boardArray,'x');
      let Orow = check(boardArray,'o');
-
      let Xvert = checkCols('x');
      let Overt = checkCols('o');
-
      let Xcross = checkAcross('x');
+     let Ocross = checkAcross('o');
+
 
 
      console.log('X accross: ' + Xcross);
@@ -98,6 +91,7 @@ class Game {
     
     constructor(letter){
       this.letter = letter;
+      this.turn = false;
     }
   }
   
@@ -120,20 +114,19 @@ class Game {
             j++;
           }
         }
-        console.log(this.grid);
+        //console.log(this.grid);
       }
 
   }
   
   
   // Instantiate Game
-  const game = new Game(document.querySelector('TABLE'),document.querySelector('.player'));
-  const board = new Board(document.querySelectorAll('TD'));
   const player1 = new Player('x');
   const player2 = new Player('o');
-
-  //board.populateGrid(game.table);
-  game.turn = player1;
+  const game = new Game(document.querySelector('TABLE'),document.querySelector('.player'), [player1,player2]);
+  const board = new Board(document.querySelectorAll('TD'));
+ 
+  player1.turn = true;
 
   //Pretty much the game loop
   game.table.addEventListener('click',function(e){
