@@ -39,12 +39,14 @@ class Game {
      let Xrow = checkRows('x');
      let Orow = checkRows('o');
 
-     
-
      let Xvert = checkCols('x');
      let Overt = checkCols('o');
 
-     console.log('X: ' + Xvert);
+     let Xcross = checkAcross('x');
+
+
+     console.log('X: ' + Xcross);
+     //console.log('O: ' + Overt);
      //console.log('X: ' + Xrow);
      //console.log('O: ' + Orow);
 
@@ -68,20 +70,9 @@ class Game {
         // convert array to be verticle.
         boardArray.forEach((row)=>{
           for(let i = 0; i < row.length; i++){
-            switch(i){
-              case 0:
-                vert[0].push(row[i]);
-                break;
-              case 1:
-                vert[1].push(row[i]);
-                break;  
-              case 2:
-                vert[2].push(row[i]);
-                break;
+            vert[i].push(row[i]);
             }
-          }
         });
-
         //console.log(vert);
         // check for match, just like in horizontal.
         return vert.some((col)=>{
@@ -95,6 +86,17 @@ class Game {
   
       //TODO write check diagonal function;
       function checkAcross(letter){
+        var diag = [[],[]];
+
+        //  [ [0,1,2], [0,1,2], [0,1,2]]  : [0,1,2]. [2,1,0]
+        for(let j = 0, i = 2; j < boardArray.length; j++){
+          diag[0].push(boardArray[j][j]);
+          diag[1].push(boardArray[i][j]);
+          i--;
+        }
+
+        console.log(diag);
+
       }
 
     }
