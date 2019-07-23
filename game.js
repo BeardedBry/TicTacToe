@@ -33,11 +33,8 @@ class Game {
       }
       console.log("checking for winner");
 
-      // var row1,row2,row3;
-      // [row1, row2, row3] = boardArray;
-
-     let Xrow = checkRows('x');
-     let Orow = checkRows('o');
+     let Xrow = check(boardArray,'x');
+     let Orow = check(boardArray,'o');
 
      let Xvert = checkCols('x');
      let Overt = checkCols('o');
@@ -45,15 +42,15 @@ class Game {
      let Xcross = checkAcross('x');
 
 
-     console.log('X: ' + Xcross);
-     //console.log('O: ' + Overt);
-     //console.log('X: ' + Xrow);
-     //console.log('O: ' + Orow);
+     console.log('X accross: ' + Xcross);
+     console.log('X vert: ' + Xvert);
+     console.log('X row: ' + Xrow);
 
 
-      function checkRows(letter){
+
+      function check(array, letter){
         
-        return boardArray.some((row)=>{ // 'some' works like forEach but looks until it finds a true value.
+        return array.some((row)=>{ // 'some' works like forEach but looks until it finds a true value.
           return row.every(function(currentValue){
             return currentValue == letter;
           });
@@ -62,7 +59,6 @@ class Game {
       }
 
       function checkCols(letter){
-        
         // TODO: Convert boardArray intro three arrays from each position in the original. (making the verticle columns). 
         // [ [0,1,2], [0,1,2], [0,1,2]]  :  [ [0,0,0], [1,1,1], [2,2,2] ]
         var vert = [[],[],[]];
@@ -73,30 +69,21 @@ class Game {
             vert[i].push(row[i]);
             }
         });
-        //console.log(vert);
         // check for match, just like in horizontal.
-        return vert.some((col)=>{
-          return col.every(function(currentValue){
-            return currentValue == letter;
-          });
-        });
-
-
+        return check(vert,letter);
       }
-  
-      //TODO write check diagonal function;
-      function checkAcross(letter){
+
+
+        function checkAcross(letter){
+          // convert array to match diagonal.
         var diag = [[],[]];
 
-        //  [ [0,1,2], [0,1,2], [0,1,2]]  : [0,1,2]. [2,1,0]
-        for(let j = 0, i = 2; j < boardArray.length; j++){
+        for(let j = 0, i = boardArray.length-1; j < boardArray.length; j++){
           diag[0].push(boardArray[j][j]);
           diag[1].push(boardArray[i][j]);
           i--;
         }
-
-        console.log(diag);
-
+        return check(diag,letter);
       }
 
     }
